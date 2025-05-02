@@ -1,0 +1,6 @@
+@PhantomLinkV3_HostAddress = http://localhost:5086
+
+GET {{PhantomLinkV3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
