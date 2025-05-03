@@ -1,5 +1,6 @@
 
 
+using DeviceSpace;
 using Microsoft.AspNetCore.SignalR;
 using ProcessSpace;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace SocketUtil {
 
         public async Task GetTasks(int? page = 0) {
             ProcessPool pool = new ProcessPool(100);
+            Device device = new();
+            device.display();
+            
             string processes = pool.ViewAllProcessJson(page);
             await Clients.Caller.SendAsync("ReceiveTasks", processes);
         }
