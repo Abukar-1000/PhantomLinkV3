@@ -11,7 +11,8 @@
           "Microsoft.AspNetCore.OpenApi": "8.0.1",
           "Microsoft.AspNetCore.SignalR": "1.2.0",
           "Newtonsoft.Json": "13.0.3",
-          "Swashbuckle.AspNetCore": "6.4.0"
+          "Swashbuckle.AspNetCore": "6.4.0",
+          "System.IO.Hashing": "9.0.4"
         },
         "runtime": {
           "PhantomLinkV3.dll": {}
@@ -315,6 +316,14 @@
         }
       },
       "System.Buffers/4.6.0": {},
+      "System.IO.Hashing/9.0.4": {
+        "runtime": {
+          "lib/net8.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "9.0.0.4",
+            "fileVersion": "9.0.425.16305"
+          }
+        }
+      },
       "System.IO.Pipelines/8.0.0": {},
       "System.Net.WebSockets.WebSocketProtocol/5.1.0": {
         "runtime": {
@@ -607,6 +616,13 @@
       "sha512": "sha512-lN6tZi7Q46zFzAbRYXTIvfXcyvQQgxnY7Xm6C6xQ9784dEL1amjM6S6Iw4ZpsvesAKnRVsM4scrDQaDqSClkjA==",
       "path": "system.buffers/4.6.0",
       "hashPath": "system.buffers.4.6.0.nupkg.sha512"
+    },
+    "System.IO.Hashing/9.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WogPvgAFqQORFD8Iyha6RZ+/1QB3dsWRWxbwi8/HHVgiGQ8z0oMWpwe8Kk3Ti+Roe+P6a3sBg+WwBfEsyziZKg==",
+      "path": "system.io.hashing/9.0.4",
+      "hashPath": "system.io.hashing.9.0.4.nupkg.sha512"
     },
     "System.IO.Pipelines/8.0.0": {
       "type": "package",

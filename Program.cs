@@ -1,9 +1,12 @@
 ﻿using SocketUtil;
+using SocketServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSingleton<DeviceService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
@@ -11,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddCors(options => {
     options.AddPolicy(name: "_ReactCors", policy => {
         policy
-        .SetIsOriginAllowed((host) => {
+         .SetIsOriginAllowed((host) => {
             Console.WriteLine("Request from:\t", host);
             return true;
         })
@@ -59,6 +62,7 @@ app.UseCors("_ReactCors");
 app.UseRouting();
 app.MapControllers();
 app.MapHub<SocketHub>("/socket");
+app.MapHub<ProcessHub>("/process");
 app.UseHttpsRedirection();
 app.Run();
 

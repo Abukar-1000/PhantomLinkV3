@@ -1,8 +1,9 @@
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
-using System.Diagnostics;
+using System.IO.Hashing;
 using System.Text;
 using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel;
 
 namespace ProcessSpace {
 
@@ -10,6 +11,35 @@ namespace ProcessSpace {
         protected UInt32 processId;
         protected System.Diagnostics.Process? process;
         public string name = "UNKNOWN";
+        
+        private string _hash;
+        public UInt32 ID 
+        {
+            get => processId;
+        }
+        public string Hash
+        {
+            get => _hash;
+        }
+
+        public bool IsRunning 
+        {
+            get => CheckIfRunning();
+        }
+
+        protected bool CheckIfRunning() {
+            try {
+                IntPtr processHandle = this.process.Handle;
+                uint exitCode;
+                GetExitCodeProcess(processHandle, out exitCode);
+                return exitCode == (uint) 259;
+            }
+            catch (NotSupportedException) {
+                return true;
+            } catch {
+                return false;
+            }
+        }
 
         [DllImport("psapi.dll", BestFitMapping = false, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetModuleFileNameEx(
@@ -19,17 +49,22 @@ namespace ProcessSpace {
             int size
         );
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetExitCodeProcess(IntPtr hProcess, out uint lpExitCode);
+
+        public Process(Process process) {
+            this.processId = process.processId;
+            this.process = GetProcessById((int) processId);
+            this.name = process.ProcessName;
+            this._hash = GetHash();
+        }
+
         public Process(UInt32 processId) {
             this.processId = processId;
             this.process = GetProcessById((int) processId);
             this.name = process.ProcessName;
-            // StringBuilder builder = new StringBuilder(1024);
-            // GetModuleFileNameEx(
-            //     this.processId,
-            //     IntPtr.Zero,
-            //     builder,
-            //     builder.Capacity * 2
-            // );
+            this._hash = GetHash();
         }
 
         public UInt32 GetID() {
@@ -120,6 +155,14 @@ namespace ProcessSpace {
                     }
                 }
             };
+        }
+
+        protected string GetHash() {
+            string metadataTag = this.GetMetaData().ToString();
+            byte[] bytes = Encoding.UTF8.GetBytes(metadataTag);
+            byte[] xxHash3Value = XxHash3.Hash(bytes);
+
+            return BitConverter.ToString(xxHash3Value);
         }
     }
 }

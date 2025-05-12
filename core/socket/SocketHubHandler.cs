@@ -3,6 +3,7 @@
 using DeviceSpace;
 using Microsoft.AspNetCore.SignalR;
 using ProcessSpace;
+using SocketServices;
 using System.Threading.Tasks;
 
 
@@ -15,12 +16,18 @@ namespace SocketUtil {
 
     public class SocketHub: Hub {
 
+        private readonly DeviceService _deviceService;
         // public override async Task OnConnectedAsync() {
         //     Console.WriteLine($"\n\tClient {Context.ConnectionId} has connected.🔥🔥\n");
         //     await Clients.All.SendAsync($"Client {Context.ConnectionId} has connected.");
         //     // await Clients.All.ReceiveNotification($"Client {Context.ConnectionId} has connected.");
         // }
         
+        public SocketHub(DeviceService deviceService) {
+            _deviceService = deviceService;
+        }
+
+        // remove
         public async Task SendMessage(string user, string message)
         {
             ProcessPool pool = new ProcessPool(100);
@@ -29,6 +36,7 @@ namespace SocketUtil {
             // await Clients.All.SendAsync("ReceiveMessage", user, pool.ViewAllProcessJson());
         }
 
+        // remove
         public async Task GetTasks(int? page = 0) {
             ProcessPool pool = new ProcessPool(100);
             Device device = new();
@@ -38,8 +46,19 @@ namespace SocketUtil {
             await Clients.Caller.SendAsync("ReceiveTasks", processes);
         }
 
-        public string GetConnectionId() {
-            return this.Context.ConnectionId;
+        public async void RegisterDevice(Device device) {
+            string deviceConnectionID = Context.ConnectionId;
+            this._deviceService.Add(
+                device.id,
+                device 
+            );
+
+            await Groups.AddToGroupAsync(device.id, deviceConnectionID);
+            await Clients.Caller.SendAsync("RegisterResponse", StatusCodes.Status200OK); 
+        }
+
+        public async void UpdateProcesses(Device device) { 
+
         }
         
         // public override Task OnDisconnected(bool stopCalled) {}

@@ -60,6 +60,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.IO.Hashing": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             }
           },
           "imports": [

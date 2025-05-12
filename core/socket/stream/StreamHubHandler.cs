@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
+using SocketServices;
 
 /*
     Users will be allowed to:
@@ -18,6 +19,7 @@ namespace SocketUtil.Stream {
 
     public class StreamHub: Hub {
         
+        private readonly DeviceService _deviceService;
         public async Task JoinGroup(string group) {
 
             string user = Context.ConnectionId;

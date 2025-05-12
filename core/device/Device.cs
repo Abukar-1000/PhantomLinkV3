@@ -8,12 +8,17 @@ namespace DeviceSpace {
         protected string version = Environment.Version.ToString();
         protected string username = Environment.UserName;
 
-        public Device() {}
+        public string id;
+
+        public Device() {
+            this.id = this.name + this.username + this.version;
+        }
 
         public void display() {
             Console.WriteLine($"\t {this.name} \t");
             Console.WriteLine($"\t {this.version} \t");
             Console.WriteLine($"\t {this.username} \t");
         }
+        
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dUj2HiSy/XsMEQ5tTM7eWAOjkF507JthOqK1nC1xSfdSFfkIpgOAFTnFsLHWZr3+pnQEY2g0wXXk4/LiOgw+tQ==",
+  "dgSpecHash": "36T3CcHNcMXY3hy5EAxYfP62cB0k6RoV2xMfDFYeobNSwiXNOG9ncWE65WyQmq0M//oX7KpCedST1B2e9Vi5Xw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Abuka\\OneDrive\\Desktop\\PhantomLinkV3\\PhantomLinkV3.csproj",
   "expectedPackageFiles": [
@@ -43,6 +43,7 @@
     "C:\\Users\\Abuka\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
     "C:\\Users\\Abuka\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
     "C:\\Users\\Abuka\\.nuget\\packages\\system.buffers\\4.6.0\\system.buffers.4.6.0.nupkg.sha512",
+    "C:\\Users\\Abuka\\.nuget\\packages\\system.io.hashing\\9.0.4\\system.io.hashing.9.0.4.nupkg.sha512",
     "C:\\Users\\Abuka\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
     "C:\\Users\\Abuka\\.nuget\\packages\\system.net.websockets.websocketprotocol\\5.1.0\\system.net.websockets.websocketprotocol.5.1.0.nupkg.sha512",
     "C:\\Users\\Abuka\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",

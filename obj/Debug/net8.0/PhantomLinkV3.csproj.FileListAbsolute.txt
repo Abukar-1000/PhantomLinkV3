@@ -43,3 +43,4 @@ C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend\package-
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend\package.json
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend\public\manifest.json
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\obj\Debug\net8.0\PhantomLinkV3.sourcelink.json
+C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\System.IO.Hashing.dll
