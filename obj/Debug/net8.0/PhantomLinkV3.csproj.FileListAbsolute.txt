@@ -39,8 +39,8 @@ C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\obj\Debug\net8.0\refint\PhantomLin
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\obj\Debug\net8.0\PhantomLinkV3.pdb
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\obj\Debug\net8.0\PhantomLinkV3.genruntimeconfig.cache
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\obj\Debug\net8.0\ref\PhantomLinkV3.dll
-C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend\package-lock.json
-C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend\package.json
-C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend\public\manifest.json
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\obj\Debug\net8.0\PhantomLinkV3.sourcelink.json
 C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\System.IO.Hashing.dll
+C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend-v2\package-lock.json
+C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend-v2\package.json
+C:\Users\Abuka\OneDrive\Desktop\PhantomLinkV3\bin\Debug\net8.0\frontend-v2\public\manifest.json

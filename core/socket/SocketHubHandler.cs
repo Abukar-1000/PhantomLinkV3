@@ -36,6 +36,10 @@ namespace SocketUtil {
             // await Clients.All.SendAsync("ReceiveMessage", user, pool.ViewAllProcessJson());
         }
 
+        public async Task GetAllDevices() {
+            await Clients.Caller.SendAsync("ReceiveDevices", _deviceService.GetAllDevices());
+        }
+
         // remove
         public async Task GetTasks(int? page = 0) {
             ProcessPool pool = new ProcessPool(100);
@@ -48,6 +52,13 @@ namespace SocketUtil {
 
         public async void RegisterDevice(Device device) {
             string deviceConnectionID = Context.ConnectionId;
+            bool alreadyRegistered =  _deviceService.Get(device.ID) is not null;
+            
+            if (alreadyRegistered) {
+                await Clients.Caller.SendAsync("RegisterResponse", StatusCodes.Status201Created);
+                return; 
+            }
+
             this._deviceService.Add(
                 device.id,
                 device 
@@ -57,10 +68,6 @@ namespace SocketUtil {
             await Clients.Caller.SendAsync("RegisterResponse", StatusCodes.Status200OK); 
         }
 
-        public async void UpdateProcesses(Device device) { 
-
-        }
-        
         // public override Task OnDisconnected(bool stopCalled) {}
         // public override Task OnReconnected() {}
     }

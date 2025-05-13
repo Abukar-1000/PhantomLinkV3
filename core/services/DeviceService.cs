@@ -1,4 +1,6 @@
 using DeviceSpace;
+using ProcessSpace.Models;
+using DeviceModel = ProcessSpace.Models.Device;
 
 namespace SocketServices {
     public class DeviceService {
@@ -16,6 +18,15 @@ namespace SocketServices {
 
         public int Count() {
             return this._devices.Count;
+        }
+
+        public void UpdateProcess(ProcessUpdateFrame updateFrame) {
+            Device device= _devices[updateFrame.deviceID];
+            device.UpdateProcess(updateFrame);
+        }
+
+        public List<DeviceModel.Device> GetAllDevices() {
+            return _devices.Values.Select(x => new DeviceModel.Device(x)).ToList();
         }
     }
 }

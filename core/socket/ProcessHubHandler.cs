@@ -1,6 +1,7 @@
 
 
 
+using DeviceSpace;
 using Microsoft.AspNetCore.SignalR;
 using ProcessSpace;
 using ProcessSpace.Models;
@@ -15,9 +16,40 @@ namespace SocketUtil {
             _deviceService = deviceService;
         }
 
+        public async Task JoinGroup(string group) {
+
+            string user = Context.ConnectionId;
+            if (group is null || group.Length == 0) {
+                await Clients.Caller.SendAsync("ConnectToGroup", new  {
+                    Status = StatusCodes.Status400BadRequest,
+                    Cause = "Group not provided."
+                });
+            }
+
+            if (user is null || user.Length == 0) {
+                await Clients.Caller.SendAsync("ConnectToGroup", new  {
+                    Status = StatusCodes.Status400BadRequest,
+                    Cause = "User not provided."
+                });
+            }
+
+            Console.WriteLine($"Group {group} => User: {user}");
+            await Groups.AddToGroupAsync(user, group);
+        }
+
         public async Task UpdateProcess(ProcessUpdateFrame frame) {
             string response =  $"ID: {frame.deviceID}\t{frame.processName} with status ${StatusCodes.Status200OK}";
             Console.WriteLine(frame.ToString());
+            Device device = _deviceService.Get(frame.deviceID);
+            
+            if (device is null) {
+                // Handle unregistered device
+                response =  $"{frame.deviceID} not registered. Status ${StatusCodes.Status400BadRequest}";
+                await Clients.Caller.SendAsync("ProcessUpdateResponse", response);
+                return; 
+            }
+
+            await Clients.Group(device.id).SendAsync("ProcessUpdate", frame);
             await Clients.Caller.SendAsync("ProcessUpdateResponse",response); 
         }
     }

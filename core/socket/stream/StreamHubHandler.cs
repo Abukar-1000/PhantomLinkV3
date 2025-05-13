@@ -37,7 +37,7 @@ namespace SocketUtil.Stream {
                 });
             }
 
-            await Groups.AddToGroupAsync(group, user);
+            await Groups.AddToGroupAsync(user, group);
         }
 
         public async Task SendMessage(string user, string message)
