@@ -61,7 +61,10 @@ export default function ProcessPannel({ group, id }) {
                     padding: "1rem",
                     maxHeight: "80dvh",
                     overflowY: "scroll",
-                    scrollBehavior: "smooth"
+                    scrollBehavior: "smooth",
+                    "-webkit-scrollbar": "hidden",
+                    "-ms-overflow-style": "none",
+                    scrollbarWidth: "none"
                 }}
             >
                 <Grid container spacing={1}>
