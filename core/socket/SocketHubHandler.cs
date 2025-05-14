@@ -50,6 +50,9 @@ namespace SocketUtil {
             await Clients.Caller.SendAsync("ReceiveTasks", processes);
         }
 
+        /*
+            Move to Process Hub or Find a way to authenticate users
+        */
         public async void RegisterDevice(Device device) {
             string deviceConnectionID = Context.ConnectionId;
             bool alreadyRegistered =  _deviceService.Get(device.ID) is not null;
@@ -59,6 +62,7 @@ namespace SocketUtil {
                 return; 
             }
 
+            device.ConnectionId = deviceConnectionID;
             this._deviceService.Add(
                 device.id,
                 device 

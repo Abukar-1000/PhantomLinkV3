@@ -1,10 +1,62 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import ProcessStatus from "./ProcessStatus";
 import Timestamp from "./Timestamp";
+import * as signalR from '@microsoft/signalr';
+import { useEffect, useState } from "react";
+import { config } from "../../Config/config";
 
 
 export default function Process({ process }) {
+    const [connection, setConnection] = useState(null);
+    const [processes, setProcesses] = useState({});
 
+    useEffect(() => {
+        const newConnection = new signalR.HubConnectionBuilder()
+            .withUrl(config.process) 
+            .withAutomaticReconnect()
+            .build();
+
+            newConnection.start()
+            .then(() => {
+                console.log('Connected!');
+            })
+            .catch(err => console.error('Connection failed: ', err));
+
+            newConnection.on('ProcessUpdate', (status) => {
+                console.log("process: ", status);
+            });
+            
+            newConnection.on('ProcessUpdate', (newProcess) => {
+                console.log("process: ", newProcess);
+                setProcesses(prev => {
+                    return {
+                        ...prev,
+                        [newProcess.processName]: newProcess
+                    }
+                });
+
+
+            });
+
+            setConnection(newConnection);
+
+        return () => {
+            newConnection.stop();
+        };
+    }, []);
+
+    const SendKillRequest = async () => {
+        const payload = {
+            deviceID: process.deviceID,
+            processName: process.processName
+        };
+
+        console.log("sending request", payload);
+        await connection?.invoke(
+            'KillProcessRequest',
+            payload
+        );
+    }
     return (
         <Paper
             elevation={1}
@@ -33,8 +85,19 @@ export default function Process({ process }) {
                     <Timestamp timestamp={process.timestamp} />
                 </Grid>
 
-                <Grid size={{ xs: 3}}>
-                
+                <Grid 
+                    size={{ xs: 3}}
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignContent={"center"}
+                >
+                    <Button
+                        color="error"
+                        variant="contained"
+                        onClick={SendKillRequest}
+                    >
+                        Kill
+                    </Button>
                 </Grid>
             </Grid>
         </Paper>

@@ -41,7 +41,6 @@ namespace SocketUtil {
             string response =  $"ID: {frame.deviceID}\t{frame.processName} with status ${StatusCodes.Status200OK}";
             Console.WriteLine(frame.ToString());
             Device device = _deviceService.Get(frame.deviceID);
-            
             if (device is null) {
                 // Handle unregistered device
                 response =  $"{frame.deviceID} not registered. Status ${StatusCodes.Status400BadRequest}";
@@ -49,8 +48,47 @@ namespace SocketUtil {
                 return; 
             }
 
+            device.UpdateProcess(frame);
             await Clients.Group(device.id).SendAsync("ProcessUpdate", frame);
             await Clients.Caller.SendAsync("ProcessUpdateResponse",response); 
+        }
+
+        public async Task KillProcessRequest(ProcessKillFrame frame) {
+            Device? device = _deviceService?.Get(frame.deviceId);
+            var previousFrame = device?.GetProcessUpdateFrame(frame.processName);
+
+            
+            Console.WriteLine($"Sending Kill request {frame.processName} \tConnectionID: {device?.ConnectionId} \tPrev Frame: {previousFrame.processName}");
+            if (previousFrame is null || device is null) {
+                await Clients.Caller.SendAsync("ProcessKillResponse", StatusCodes.Status404NotFound);
+                return; 
+            }
+
+            // Send kill reaquest to device
+            // await Clients.Client(device.ConnectionId).SendAsync("ProcessKillRequest", frame);
+            await Clients.Client(device.ConnectionId).SendAsync("ProcessKillRequest", frame.processName);
+        }
+
+        public async Task KillProcessResponse(ProcessKillFrameResponse frame) {
+            Device? device = _deviceService?.Get(frame.deviceId);
+            var previousFrame = device?.GetProcessUpdateFrame(frame.processName);
+
+            if (previousFrame is null || device is null) {
+                await Clients.Caller.SendAsync("ProcessKillResponse", StatusCodes.Status404NotFound);
+                return; 
+            }
+
+            if (frame.response == StatusCodes.Status200OK) {
+                previousFrame.status = ProcessHub.InverseStatus(previousFrame.status);
+                await UpdateProcess(previousFrame);
+            }
+        }
+
+        protected static string InverseStatus(string status) {
+            if (status == "Alive") {
+                return "Dead";
+            }
+            return "Alive";
         }
     }
 }

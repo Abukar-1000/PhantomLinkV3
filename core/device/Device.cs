@@ -7,6 +7,7 @@ namespace DeviceSpace {
         protected string name = Environment.MachineName;
         protected string version = Environment.Version.ToString();
         protected string username = Environment.UserName;
+        protected string connectionId;
         protected Dictionary<string, ProcessUpdateFrame> processFrames = new();
         public string id;
 
@@ -26,9 +27,19 @@ namespace DeviceSpace {
             get => id;
         }
         
+        public string ConnectionId {
+            get => connectionId;
+            set => connectionId = value;
+        }
+
 
         public Device() {
             this.id = this.name + this.username + this.version;
+        }
+
+        public Device(string connectionId) {
+            this.id = this.name + this.username + this.version;
+            this.connectionId = connectionId;
         }
 
         public void display() {
@@ -39,6 +50,16 @@ namespace DeviceSpace {
 
         public void UpdateProcess(ProcessUpdateFrame updateFrame) {
             this.processFrames[updateFrame.processName] = updateFrame;
+        }
+
+        public ProcessUpdateFrame? GetProcessUpdateFrame(string processName) {
+            bool frameDoesNotExist = processFrames.ContainsKey(processName) == false;
+
+            if (frameDoesNotExist) {
+                return null;
+            }
+
+            return this.processFrames[processName];
         }
         
     }
