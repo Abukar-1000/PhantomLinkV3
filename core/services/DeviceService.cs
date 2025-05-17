@@ -1,6 +1,6 @@
 using DeviceSpace;
 using ProcessSpace.Models;
-using DeviceModel = ProcessSpace.Models.Device;
+using DeviceModel = DeviceSpace.Models;
 
 namespace SocketServices {
     public class DeviceService {
@@ -26,7 +26,7 @@ namespace SocketServices {
         }
 
         public List<DeviceModel.Device> GetAllDevices() {
-            return _devices.Values.Select(x => new DeviceModel.Device(x)).ToList();
+            return _devices.Values.Select(device => new DeviceModel.Device(device)).ToList();
         }
     }
 }

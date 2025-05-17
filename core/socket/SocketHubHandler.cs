@@ -3,9 +3,10 @@
 using DeviceSpace;
 using Microsoft.AspNetCore.SignalR;
 using ProcessSpace;
+using Register.Models;
 using SocketServices;
 using System.Threading.Tasks;
-
+using DeviceModels = DeviceSpace.Models;
 
 namespace SocketUtil {
 
@@ -33,7 +34,6 @@ namespace SocketUtil {
             ProcessPool pool = new ProcessPool(100);
             Console.WriteLine("", user, message);
             await Clients.Caller.SendAsync("ReceiveMessage", user, pool.ViewAllProcessJson());
-            // await Clients.All.SendAsync("ReceiveMessage", user, pool.ViewAllProcessJson());
         }
 
         public async Task GetAllDevices() {
@@ -44,28 +44,29 @@ namespace SocketUtil {
         public async Task GetTasks(int? page = 0) {
             ProcessPool pool = new ProcessPool(100);
             Device device = new();
-            device.display();
+            device.DisplayInfo();
             
             string processes = pool.ViewAllProcessJson(page);
             await Clients.Caller.SendAsync("ReceiveTasks", processes);
         }
 
-        public async void RegisterDevice(Device device) {
+        public async void RegisterDevice(RegisterFrame frame) {
             string deviceConnectionID = Context.ConnectionId;
-            bool alreadyRegistered =  _deviceService.Get(device.ID) is not null;
+            bool alreadyRegistered =  _deviceService.Get(frame.id) is not null;
             
             if (alreadyRegistered) {
                 await Clients.Caller.SendAsync("RegisterResponse", StatusCodes.Status201Created);
                 return; 
             }
 
-            device.ConnectionId = deviceConnectionID;
+            Device _device = new Device(frame); 
+            _device.ConnectionId = deviceConnectionID;
             this._deviceService.Add(
-                device.id,
-                device 
+                frame.id,
+                _device 
             );
 
-            await Groups.AddToGroupAsync(device.id, deviceConnectionID);
+            await Groups.AddToGroupAsync(frame.id, deviceConnectionID);
             await Clients.Caller.SendAsync("RegisterResponse", StatusCodes.Status200OK); 
         }
 

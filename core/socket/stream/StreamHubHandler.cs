@@ -1,3 +1,6 @@
+using DeviceSpace;
+using DisplayModels = Display.Models;
+using DisplaySpace;
 using Microsoft.AspNetCore.SignalR;
 using SocketServices;
 
@@ -40,9 +43,25 @@ namespace SocketUtil.Stream {
             await Groups.AddToGroupAsync(user, group);
         }
 
-        public async Task SendMessage(string user, string message)
+        public async Task GetResolutionOptions(string deviceID)
         {
-            await Clients.Caller.SendAsync("ReceiveMessage", user, "1");
+            List<DisplayModels.ResolutionOption> options = new();
+            Device device = _deviceService.Get(deviceID);
+            DisplaySpace.Display display = device.GetDisplay();
+
+            foreach (DisplayType type in Enum.GetValues(typeof(DisplayType)))
+            {
+                if (type <= display.type)
+                {
+                    options.Add(new DisplayModels.ResolutionOption(
+                        (int)type,
+                        type.GetStringType(),
+                        type.GetDimensions()
+                    ));
+                }
+            }
+            
+            await Clients.Caller.SendAsync("ReceiveResolutionOptions", options);
         }
 
         public async Task GetTasks(int? page = 0) {

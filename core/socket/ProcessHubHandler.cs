@@ -70,7 +70,6 @@ namespace SocketUtil {
 
             // Send kill reaquest to device
             await Clients.Client(device.ConnectionId).SendAsync("ProcessKillRequest", frame);
-            // await Clients.Client(device.ConnectionId).SendAsync("ProcessKillRequest", frame.processName);
         }
 
         public async Task KillProcessResponse(ProcessKillFrameResponse frame) {
