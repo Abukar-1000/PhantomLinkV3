@@ -3,6 +3,7 @@ using DisplayModels = Display.Models;
 using DisplaySpace;
 using Microsoft.AspNetCore.SignalR;
 using SocketServices;
+using Display.Models;
 
 /*
     Users will be allowed to:
@@ -64,7 +65,15 @@ namespace SocketUtil.Stream {
             await Clients.Caller.SendAsync("ReceiveResolutionOptions", options);
         }
 
-        public async Task GetTasks(int? page = 0) {
+        public async Task BrodcastFrame(ScreenFrame frame)
+        {
+            Console.WriteLine("\n\n");
+            Console.WriteLine($"[{frame.id}]\t Frame recieved {frame.image.Length} {frame.width}x{frame.height}");
+            await Clients.Group(frame.id).SendAsync("ScreenFrameUpdate", frame);
+        }
+
+        public async Task GetTasks(int? page = 0)
+        {
             await Clients.Caller.SendAsync("ReceiveTasks", "1");
         }
 

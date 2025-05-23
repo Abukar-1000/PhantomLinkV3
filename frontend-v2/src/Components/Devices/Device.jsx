@@ -1,6 +1,7 @@
 import { Box, Grid, Paper, Stack, Typography } from '@mui/material';
 import { useParams } from "react-router";
 import ProcessPannel from '../Process/ProcessPannel';
+import Display from '../Display/Display';
 
 export default function Device({ device }) {
     const { id } = useParams();
@@ -10,13 +11,13 @@ export default function Device({ device }) {
                 paddingTop: "1rem"
             }}
         >
-            <Grid container>
-                <Grid size={{ xs: 2}}>
+            <Grid container spacing={{ xs: 2 }}>
+                <Grid size={{ xs: 1}}>
 
                 </Grid>
 
-                <Grid size={{ xs: 6}}>
-
+                <Grid size={{ xs: 7}}>
+                    <Display deviceId={id} />
                 </Grid>
 
                 <Grid size={{ xs: 4}}>

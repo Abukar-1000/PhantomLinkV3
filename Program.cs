@@ -1,5 +1,6 @@
 ﻿using SocketUtil;
 using SocketServices;
+using SocketUtil.Stream;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,9 +25,13 @@ builder.Services.AddCors(options => {
     });
 });
 
-builder.Services.AddSignalR(options => {
+builder.Services.AddSignalR(options =>
+{
+    const int ONE_MB = 1024 * 1024;
     options.EnableDetailedErrors = true;
+    options.MaximumReceiveMessageSize = 5 * ONE_MB;
 });
+
 builder.WebHost.UseUrls("http://10.0.0.178:80");
 
 var app = builder.Build();
@@ -63,6 +68,7 @@ app.UseRouting();
 app.MapControllers();
 app.MapHub<SocketHub>("/socket");
 app.MapHub<ProcessHub>("/process");
+app.MapHub<StreamHub>("/screenBrodcast");
 app.UseHttpsRedirection();
 app.Run();
 
