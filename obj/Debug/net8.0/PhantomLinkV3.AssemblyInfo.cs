@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PhantomLinkV3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c54e4ae0004f0f5c5f1f69ee58ba78c27c807c49")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a1528e8e7e8cf40c90baa90a7381402b4b24534")]
 [assembly: System.Reflection.AssemblyProductAttribute("PhantomLinkV3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PhantomLinkV3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

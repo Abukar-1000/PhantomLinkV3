@@ -68,6 +68,7 @@ app.UseRouting();
 app.MapControllers();
 app.MapHub<SocketHub>("/socket");
 app.MapHub<ProcessHub>("/process");
+app.MapHub<MouseHub>("/mouse");
 app.MapHub<StreamHub>("/screenBrodcast");
 app.UseHttpsRedirection();
 app.Run();

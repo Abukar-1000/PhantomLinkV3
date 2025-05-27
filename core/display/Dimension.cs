@@ -11,7 +11,6 @@ namespace DisplaySpace {
         public Dimension(int width, int height) {
             this.width = width;
             this.height = height;
-
         }
     }
 }

@@ -8,6 +8,5 @@ namespace Display.Models
         public int width { get; set; }
         public int height { get; set; }
         public string id { get; set; }
-
     }
 }

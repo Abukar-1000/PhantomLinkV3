@@ -4,5 +4,6 @@ const baseAddress = "http://10.0.0.178:80"
 export const config = {
     socket: `${baseAddress}/socket`,
     process: `${baseAddress}/process`,
+    mouse: `${baseAddress}/mouse`,
     screenBrodcast: `${baseAddress}/screenBrodcast`
 }
