@@ -1,9 +1,14 @@
 ﻿using SocketUtil;
 using SocketServices;
 using SocketUtil.Stream;
+using NetworkSpace;
+using System.Net.NetworkInformation;
+using NetworkModels = NetworkSpace.Models;
+
+var networkOptions = new Network().GetOptions();
+string serverAddress = "http://" + networkOptions.IPV4Address + ":80";
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSingleton<DeviceService>();
@@ -16,7 +21,7 @@ builder.Services.AddCors(options => {
     options.AddPolicy(name: "_ReactCors", policy => {
         policy
          .SetIsOriginAllowed((host) => {
-            Console.WriteLine("Request from:\t", host);
+            // Console.WriteLine("Request from:\t", host);
             return true;
         })
         .AllowAnyHeader()
@@ -32,7 +37,7 @@ builder.Services.AddSignalR(options =>
     options.MaximumReceiveMessageSize = 5 * ONE_MB;
 });
 
-builder.WebHost.UseUrls("http://10.0.0.178:80");
+builder.WebHost.UseUrls(serverAddress);
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

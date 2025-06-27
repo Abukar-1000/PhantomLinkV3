@@ -28,21 +28,16 @@ export default function ProcessPannel({ group, id }) {
             })
             .catch(err => console.error('Connection failed: ', err));
 
-            newConnection.on('ProcessUpdate', (newProcess) => {
-                console.log("process: ", newProcess);
+            newConnection?.on('ProcessUpdate', (newProcess) => {
                 setProcesses(prev => {
                     return {
                         ...prev,
                         [newProcess.processName]: newProcess
                     }
                 });
-
-                // processes.set(newProcess.processName, newProcess);
-                // processes(prev => [...prev, message]);
             });
 
             setConnection(newConnection);
-
         return () => {
             newConnection.stop();
         };

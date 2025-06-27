@@ -2,6 +2,7 @@ import * as signalR from '@microsoft/signalr';
 import { Box, Paper } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { config } from '../../Config/config';
+import LiveFeed from './LiveFeed';
 
 const defaultDimensions = {
     width: 1920,
@@ -27,12 +28,11 @@ export default function Display({ pdimensions = defaultDimensions, deviceId }) {
     });
     const viewportRef = useRef();
     const [mousePosition, setMousePosition] = useState({
-        x: null,
-        y: null
+        x: 0,
+        y: 0
     })
     
     const [connection, setConnection] = useState(null);
-    const [frame, setFrame] = useState({});
 
     useEffect(() => {
         const getViewPortDimensionsCallback = () => {
@@ -66,19 +66,19 @@ export default function Display({ pdimensions = defaultDimensions, deviceId }) {
             newConnection.start()
             .then(() => {
                 console.log('Connected!');
-                newConnection.invoke('JoinGroup', deviceId);
+                newConnection?.invoke('JoinGroup', deviceId);
                 
                 const isInitialLoad = mousePosition.x === null && mousePosition.y === null;
                 console.log(`MoveTo: (${mousePosition.x}, ${mousePosition.y})`);                
-                newConnection?.invoke("MoveTo", {
-                    x: mousePosition.x,
-                    y: mousePosition.y,
-                    id: deviceId,
-                    viewPortDimensions: {
-                        width: viewportDimensions.width,
-                        height: viewportDimensions.height
-                    }
-                });
+                // newConnection?.invoke("MoveTo", {
+                //     x: mousePosition.x,
+                //     y: mousePosition.y,
+                //     id: deviceId,
+                //     viewPortDimensions: {
+                //         width: viewportDimensions.width,
+                //         height: viewportDimensions.height
+                //     }
+                // });
                 
                 if (!isInitialLoad) {
                 }
@@ -93,33 +93,6 @@ export default function Display({ pdimensions = defaultDimensions, deviceId }) {
         };
     }, [mousePosition.x, mousePosition.y]);
 
-    useEffect(() => {
-        const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl(config.screenBrodcast) 
-            .withAutomaticReconnect()
-            .build();
-
-            newConnection.start()
-            .then(() => {
-                console.log('Connected!');
-                newConnection.invoke('JoinGroup', deviceId);
-            })
-            .catch(err => console.error('Connection failed: ', err));
-
-            newConnection.on('ScreenFrameUpdate', (newFrame) => {
-                // console.log("New Frame: ", newFrame);
-                setFrame(newFrame);
-            });
-
-            setConnection(newConnection);
-
-        return () => {
-            newConnection.stop();
-        };
-    }, []);
-
-    
-    console.log(`AT: (${mousePosition.x}, ${mousePosition.y})`);                
     return (
         <Box
             sx={{
@@ -127,24 +100,21 @@ export default function Display({ pdimensions = defaultDimensions, deviceId }) {
             }}
             >
             <Paper
-                onMouseOver={e => {
-                            setMousePosition({
-                                x: e.clientX,
-                                y: e.clientY
-                            });
-                        }}
+                onMouseMove={e => {
+                    connection?.invoke("MoveTo", {
+                        x: e.clientX,
+                        y: e.clientY,
+                        id: deviceId,
+                        viewPortDimensions: {
+                            width: viewportDimensions.width,
+                            height: viewportDimensions.height
+                        }
+                    });
+                }}
                 ref={viewportRef}
                 elevation={8}
             >
-                <img
-                    alt='stream-video'
-                    src={`data:image/jpeg;base64,${frame.image}`}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        "objectFit": "contain"
-                    }}
-                />
+                <LiveFeed deviceId={deviceId} />
             </Paper>
         </Box>
     );

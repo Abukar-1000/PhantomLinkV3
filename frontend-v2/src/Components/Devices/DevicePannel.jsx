@@ -1,5 +1,5 @@
 import * as signalR from '@microsoft/signalr';
-import { Box, Grid } from '@mui/material';
+import { Box, Container, Grid, Stack } from '@mui/material';
 import { config } from '../../Config/config';
 import { useEffect, useState } from "react";
 import DeviceOption from './DeviceOption';
@@ -20,8 +20,6 @@ export default function DevicePannel() {
                             .build();
         
         connection.on("ReceiveDevices", (newDevices) => {
-            console.log("new devices", newDevices);
-            setLoading(false);
             setDevices(newDevices);
         });
 
@@ -33,6 +31,7 @@ export default function DevicePannel() {
             .catch(error => console.error("Error connecting to SignalR hub:", error));
         
         setConnection(connection);
+
         
         return () => {
             connection.stop();
@@ -40,30 +39,38 @@ export default function DevicePannel() {
     }, []);
 
     return (
-        <Box>
-            {
-                loading && (<h1>Loading</h1>)
-            }
-            {
-                devices && (
-                    <Grid 
-                        container
-                        gap={1}
-                    >
-                        {
-                            devices.map((device, id) => {
-                                console.log(device);
-                                const baseId = id * 10;
-                                return (
-                                    <Grid size={{ xs: 3 }}>
-                                        <DeviceOption device={device}/>
-                                    </Grid>
-                                )
-                            })
-                        }
-                    </Grid>
-                )
-            }
-        </Box>
+        <Container
+            maxWidth="xl"
+            sx={{
+                height: "100dvh",
+                paddingTop: "10dvh"
+            }}
+        >
+            <Box>
+                {
+                    loading && (<h1>Loading</h1>)
+                }
+                {
+                    devices && (
+                        <Grid 
+                            container
+                            gap={1}
+                        >
+                            {
+                                devices.map((device, id) => {
+                                    console.log(device);
+                                    const baseId = id * 10;
+                                    return (
+                                        <Grid size={{ xs: 3 }}>
+                                            <DeviceOption device={device}/>
+                                        </Grid>
+                                    )
+                                })
+                            }
+                        </Grid>
+                    )
+                }
+            </Box>
+        </Container>
     );
 }

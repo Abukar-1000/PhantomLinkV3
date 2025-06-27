@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { deepPurple, grey, pink, purple } from "@mui/material/colors";
+import { deepPurple, green, grey, pink, purple } from "@mui/material/colors";
 
 
 const darkTheme = createTheme({
@@ -7,7 +7,13 @@ const darkTheme = createTheme({
         mode: "dark",
         secondary: {
             main: deepPurple["A400"]
-        }
+        },
+        success: {
+            main: green["A400"]
+        },
+        error: {
+            main: pink["A400"]
+        },
     }
 })
 
