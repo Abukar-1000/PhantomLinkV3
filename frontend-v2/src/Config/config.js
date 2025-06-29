@@ -12,6 +12,9 @@ export const config = {
     process: `${baseAddress}/process`,
     mouse: `${baseAddress}/mouse`,
     screenBrodcast: `${baseAddress}/screenBrodcast`,
+    hardware: {
+        performance: `${baseAddress}/hardware/performance`
+    },
     intervals: {
         display: {
             refresh: time.oneMinute * 3

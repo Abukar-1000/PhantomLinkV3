@@ -2,6 +2,7 @@ import { Box, Grid, Paper, Stack, Typography } from '@mui/material';
 import { useParams } from "react-router";
 import ProcessPannel from '../Process/ProcessPannel';
 import Display from '../Display/Display';
+import Heartbeat from '../Performance/Heartbeat/Heartbeat';
 
 export default function Device({ device }) {
     const { id } = useParams();
@@ -21,7 +22,12 @@ export default function Device({ device }) {
                 </Grid>
 
                 <Grid size={{ xs: 4}}>
-                    <ProcessPannel group={id} id={id} />
+                    <Stack
+                        gap={3}
+                    >
+                        <Heartbeat deviceId={id}/>
+                        <ProcessPannel group={id} id={id} />
+                    </Stack>
                 </Grid>
                 
             </Grid>

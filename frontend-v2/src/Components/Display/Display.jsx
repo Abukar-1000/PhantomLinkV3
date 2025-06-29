@@ -69,16 +69,7 @@ export default function Display({ pdimensions = defaultDimensions, deviceId }) {
                 newConnection?.invoke('JoinGroup', deviceId);
                 
                 const isInitialLoad = mousePosition.x === null && mousePosition.y === null;
-                console.log(`MoveTo: (${mousePosition.x}, ${mousePosition.y})`);                
-                // newConnection?.invoke("MoveTo", {
-                //     x: mousePosition.x,
-                //     y: mousePosition.y,
-                //     id: deviceId,
-                //     viewPortDimensions: {
-                //         width: viewportDimensions.width,
-                //         height: viewportDimensions.height
-                //     }
-                // });
+                console.log(`MoveTo: (${mousePosition.x}, ${mousePosition.y})`);
                 
                 if (!isInitialLoad) {
                 }

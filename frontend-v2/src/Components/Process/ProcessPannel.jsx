@@ -54,7 +54,7 @@ export default function ProcessPannel({ group, id }) {
                 elevation={4}
                 sx={{
                     padding: "1rem",
-                    maxHeight: "80dvh",
+                    maxHeight: "61dvh",
                     overflowY: "scroll",
                     scrollBehavior: "smooth",
                     "-webkit-scrollbar": "hidden",
