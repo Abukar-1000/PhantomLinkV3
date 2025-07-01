@@ -104,6 +104,9 @@ export default function Display({ pdimensions = defaultDimensions, deviceId }) {
                 }}
                 ref={viewportRef}
                 elevation={8}
+                sx={{
+                    padding: "0px",
+                }}
             >
                 <LiveFeed deviceId={deviceId} />
             </Paper>

@@ -1,5 +1,4 @@
 import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
-import WindowSharpIcon from '@mui/icons-material/WindowSharp';
 import CPUIcon from "../../Icons/CPUIcon";
 import GPUIcon from "../../Icons/GPUIcon";
 import RamIcon from "../../Icons/RamIcon";

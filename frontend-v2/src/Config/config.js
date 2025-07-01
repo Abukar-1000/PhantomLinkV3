@@ -5,8 +5,11 @@ const time = {
     oneDay: 24 * 60 * 60 * 1000,
 }
 
-const baseAddress = "http://10.0.0.178:80"
-// const baseAddress = "http://127.0.0.1:5086"
+const address = process.env.REACT_APP_IS_PROD === "true"? 
+                    process.env.REACT_APP_PROD_BASE_ADDRESS : 
+                    process.env.REACT_APP_DEV_BASE_ADDRESS;
+
+const baseAddress = address;
 export const config = {
     socket: `${baseAddress}/socket`,
     process: `${baseAddress}/process`,

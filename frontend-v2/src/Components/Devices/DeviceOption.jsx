@@ -4,11 +4,15 @@ import { Link } from 'react-router';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import DvrRoundedIcon from '@mui/icons-material/DvrRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import WindowSharpIcon from '@mui/icons-material/WindowSharp';
+import WIndowsOsIcon from '../Icons/WIndowsOsIcon';
+import useMapThemeColor from '../Icons/useMapThemeColor';
 
 export default function DeviceOption({ device }) {
     const [isMouseOver, setIsMouseOver] = useState(false);
     const [maxElevation, minElevation] = [24, 2]
     const destination = `device/${device.id}`;
+    const color = useMapThemeColor("secondary");
 
     return (
         <Link
@@ -26,7 +30,6 @@ export default function DeviceOption({ device }) {
                     elevation={isMouseOver ? maxElevation : minElevation}
                     sx={{
                         padding: "1rem",
-                        // width: "100%",
                         borderRadius: "10px"
                     }}
                 >
@@ -46,7 +49,8 @@ export default function DeviceOption({ device }) {
                                 direction={"row"}
                                 gap={1}
                             >
-                                <DvrRoundedIcon color={"secondary"}/>
+                                <WIndowsOsIcon color={color} fontSize={"small"}/>
+                                {/* <DvrRoundedIcon color={"secondary"}/> */}
                                 <Typography>Device</Typography>
                             </Stack>
 
