@@ -3,5 +3,5 @@
 </div>
 <br>
 <div>
-    <img src="./assets/icons/PhantomLinkV-Tech-Stack.png"/>
+    <img src="./assets/icons/PhantomLinkV-Tech-Stack.svg"/>
 </div>
