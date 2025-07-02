@@ -1,3 +1,3 @@
 <div>
-    <img src="./assets/icons/PhantomLinkV-Title.svg"/>
+    <img src="./assets/icons/PantomLinkVTitle.png"/>
 </div>
