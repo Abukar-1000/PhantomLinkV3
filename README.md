@@ -34,9 +34,11 @@
 <table align="center">
     
 <tr>
-    <td>
+    <th>          
     </td>
-    <td> <h3 align="center">Ready</h3> </td>
+    <th> 
+        <h3 align="center">Ready</h3> 
+    </td>
 </tr>
 
 <tr>
@@ -88,13 +90,15 @@
     <td>Current GPU % usage</td>
 </tr>
 
+</table>
 
-
+<table align="center">
 <tr>
-    <td>
-        
-    </td>
-    <td> <h3 align="center">Upcoming</h3> </td>
+    <th>    
+    </th>
+    <th> 
+        <h3 align="center">Upcoming</h3> 
+    </th>
 </tr>
 
 <tr>
