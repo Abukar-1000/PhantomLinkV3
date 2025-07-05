@@ -89,9 +89,26 @@ namespace SocketUtil {
             }
         }
 
+        public async Task GetAllProcesses(string deviceId)
+        {
+            Device? device = _deviceService?.Get(deviceId);
+            await Clients.Client(device.ConnectionId).SendAsync("GetAllProcessesRequest", new GetAllProcessesFrame()
+            {
+                clientId = Context.ConnectionId,
+                deviceId = device.ConnectionId
+            });
+        }
+
+        public async Task GetAllProcessesResponse(GetAllProcessesResponse frame)
+        {
+            await Clients.Client(frame.clientId).SendAsync("GetAllProcessesResponse", frame.process);
+        }
+
         // Should not inverse ( refactor )
-        protected static string InverseStatus(string status) {
-            if (status == "Alive") {
+        protected static string InverseStatus(string status)
+        {
+            if (status == "Alive")
+            {
                 return "Dead";
             }
             return "Alive";
