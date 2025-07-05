@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { deepPurple, grey, pink, purple } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 
 
 const BackgroundTheme = createTheme({

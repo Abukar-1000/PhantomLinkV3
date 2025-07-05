@@ -25,10 +25,21 @@ export default function ProcessPannel({ group, id }) {
             .then(() => {
                 console.log('Connected!');
                 newConnection.invoke('JoinGroup', group);
+                newConnection?.invoke('GetAllProcesses', id);
             })
             .catch(err => console.error('Connection failed: ', err));
 
+
             newConnection?.on('ProcessUpdate', (newProcess) => {
+                setProcesses(prev => {
+                    return {
+                        ...prev,
+                        [newProcess.processName]: newProcess
+                    }
+                });
+            });
+
+            newConnection?.on('GetAllProcessesResponse', (newProcess) => {
                 setProcesses(prev => {
                     return {
                         ...prev,
