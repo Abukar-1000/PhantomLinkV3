@@ -153,5 +153,5 @@
 <br>
 
 <div align="center">
-    <img src="./assets/icons/coming-soon.gif"/>
+    ![Demo](https://youtu.be/5z3b80I8HRY?si=JWmNOa22a6wAdlny)
 </div>
