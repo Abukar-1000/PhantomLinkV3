@@ -16,7 +16,7 @@
 <div>
     <p>A web based solution for fully controlling windows computers on your local network.</p>
     <p>Most notible characteristic is to be as close as possiable to real-time as possible in all features.</p>
-    <p>Test Pull</p>
+    <p>Test Pull 2</p>
 </div>
 
 <br>
